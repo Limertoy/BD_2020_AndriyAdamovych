@@ -1,0 +1,5 @@
+Projekt jest realizowany przy użyciu języków HTML, CSS, JAVASCRIPT i PHP.
+
+Wyjaśnienie diagramu ERD:
+Klient, który chcę kupić auto, ma 3 różne sposoby wybrać go: w Dealera (nowe auto bez przebiegu), w sklepach obok siebie i po prostu jakiekolwiek auto, które 
+mu się podoba. Ma możliwość kupić tyle samochodów, ile on chcę.

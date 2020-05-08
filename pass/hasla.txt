@@ -1,0 +1,3 @@
+PLSQL: 
+Username: Oracle 
+Password:Oracle
