@@ -4346,7 +4346,14 @@ input[type="button"].btn-block {
   color: white;
   height: 100px;
   text-align: center;
-  padding-top: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+
+.konto{
+  color: #3cba23;
 }
 
 .navbar {
@@ -4796,6 +4803,7 @@ input[type="button"].btn-block {
   min-height: 1px;
   padding: 1.25rem;
 }
+
 
 .card-title {
   margin-bottom: 0.75rem;

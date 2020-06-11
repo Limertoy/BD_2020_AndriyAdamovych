@@ -1,3 +1,5 @@
-PLSQL: 
-Username: Oracle 
-Password:Oracle
+GUI: 
+	Konto zwykłego użytkownika:
+	Email: user@email.com Hasło: user123
+	Konto admina:
+	Email: admin@email.com Hasło: admin
