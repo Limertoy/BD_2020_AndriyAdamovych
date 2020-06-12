@@ -107,11 +107,12 @@ include('php/rejestracja2.php');
     </div>
 
     <!-- Footer -->
-    <footer class="footer fixed-bottom" style="height: 50px; padding: 14px">
-        © 2020 Copyright:
-        <a class="white" href="index.html">Corona Car</a>
-    </footer>
-
+    <div class="footer">
+        <p style="padding-top: 14px">
+            © 2020 Copyright:
+            <a class="white" href="index.html">Corona Car</a>
+        </p>
+    </div>
 </body>
 
 </html>

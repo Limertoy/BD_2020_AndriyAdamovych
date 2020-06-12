@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Час створення: Чрв 11 2020 р., 14:50
+-- Час створення: Чрв 12 2020 р., 00:16
 -- Версія сервера: 10.4.11-MariaDB
 -- Версія PHP: 7.4.2
 
@@ -47,9 +47,10 @@ CREATE TABLE `auto` (
 --
 
 INSERT INTO `auto` (`ID_AUTA`, `Nazwa`, `Rok`, `Przebieg`, `Pojemnosc`, `Moc`, `Cena`, `ID_DEALERA`, `ID_SKLEPU`, `img_auto`, `Hidden`) VALUES
-(1, 'Ford KA+', 2020, '0 km', '1,2 L', '75Km', 13000, 6, 1, 'img/fordka.jpg', 0),
-(5, 'Nissan Skyline', 2007, '75342km', '3,5 L', '320KM', 15000, 5, 2, 'img/nissangtr.jpg', 0),
-(6, 'Renault Logan', 2013, '0 km', '1,2 L', '75KM', 12000, 5, 2, 'img/renaultlogan.jpg', 0);
+(7, 'Renault Logan', 2013, '0 km', '1,2 L', '75Km', 13000, 5, 1, 'img/renaultlogan.jpg', 0),
+(8, 'Nissan Skyline', 2013, '75342km', '3,5 L', '320KM', 100000, 6, 2, 'img/nissangtr.jpg', 0),
+(14, 'BMW M3', 2005, '150.000 km', '2.5L', '200KM', 20512, 5, 1, 'img/bmwm3.jpg', 0),
+(16, 'Ford KA+', 2020, '0km', '1.2L', '85KM', 20000, 5, 1, 'img/fordka.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -93,7 +94,7 @@ CREATE TABLE `klient` (
 
 INSERT INTO `klient` (`ID_KLIENTA`, `Imie`, `Telefon_klienta`, `Email_klienta`, `Haslo`) VALUES
 (1, 'Andriy Adamovych', '555 555 555', 'admin@email.com', 'admin'),
-(37, 'Zwykły użytkownik', '123123', 'limertoy@ukr.net', '123');
+(2, 'Zwykły użytkownik', '123 456 789', 'user@email.com', 'user123');
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,7 @@ CREATE TABLE `sklep` (
 
 INSERT INTO `sklep` (`ID_SKLEPU`, `Nazwa_sklepu`, `Adres`, `Telefon_sklepu`, `Email_sklepu`, `img_sklep`) VALUES
 (1, 'Otomoto', 'Warszawa, ul.Mickiewicza, 15', '506 234 123', 'otomoto@email.com', 'img/otomoto.jpg'),
-(2, 'Omega Cars', 'Rzeszów, al. Rejtana, 2', '555 001 223', 'omega@email.com', '');
+(2, 'Omega Cars', 'Rzeszów, al. Rejtana, 2', '555 001 223', 'omega@email.com', 'img/omegalogo.jpg');
 
 --
 -- Індекси збережених таблиць
@@ -141,6 +142,7 @@ INSERT INTO `sklep` (`ID_SKLEPU`, `Nazwa_sklepu`, `Adres`, `Telefon_sklepu`, `Em
 --
 ALTER TABLE `auto`
   ADD PRIMARY KEY (`ID_AUTA`),
+  ADD UNIQUE KEY `img_auto` (`img_auto`),
   ADD KEY `ID_DEALERA` (`ID_DEALERA`),
   ADD KEY `ID_SKLEPU` (`ID_SKLEPU`);
 
@@ -181,7 +183,7 @@ ALTER TABLE `sklep`
 -- AUTO_INCREMENT для таблиці `auto`
 --
 ALTER TABLE `auto`
-  MODIFY `ID_AUTA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_AUTA` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT для таблиці `dealer`
@@ -199,7 +201,7 @@ ALTER TABLE `klient`
 -- AUTO_INCREMENT для таблиці `koszyk`
 --
 ALTER TABLE `koszyk`
-  MODIFY `ID_ZAKUPU` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `ID_ZAKUPU` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT для таблиці `sklep`
@@ -222,7 +224,8 @@ ALTER TABLE `auto`
 -- Обмеження зовнішнього ключа таблиці `koszyk`
 --
 ALTER TABLE `koszyk`
-  ADD CONSTRAINT `ID_AUTA` FOREIGN KEY (`ID_AUTA`) REFERENCES `auto` (`ID_AUTA`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ID_AUTA` FOREIGN KEY (`ID_AUTA`) REFERENCES `auto` (`ID_AUTA`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ID_KLIENTA` FOREIGN KEY (`ID_KLIENTA`) REFERENCES `klient` (`ID_KLIENTA`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

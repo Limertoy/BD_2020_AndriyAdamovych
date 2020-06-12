@@ -2938,6 +2938,8 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
 
+
+
 .btn-outline-success {
   color: #28a745;
   border-color: #28a745;
@@ -2954,7 +2956,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-success.disabled, .btn-outline-success:disabled {
-  color: #28a745;
+  color: #3cba23;
   background-color: transparent;
 }
 
@@ -4344,9 +4346,10 @@ input[type="button"].btn-block {
 .footer{
   background-color: #3cba23; 
   color: white;
-  height: 100px;
+  width: 100%;
+  height: 50px;
+  position: fixed;
   text-align: center;
-  position: absolute;
   bottom: 0;
   left: 0;
 }

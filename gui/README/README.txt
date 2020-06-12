@@ -1,0 +1,1 @@
+Zaczynać od pliku index.html

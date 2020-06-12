@@ -1,0 +1,2 @@
+Zwykły użytkownik: user@email.com user123
+Admin: admin@email.com admin

@@ -51,41 +51,43 @@ $result = mysqli_fetch_row($first);
     <?php
     if (isset($_SESSION["name"])) {
         $history = mysqli_query($link, "SELECT * FROM `koszyk` WHERE `ID_KLIENTA` = " . $_SESSION["id"] . ";");
-       
-            
+
+
     ?>
-            <table class="table">
-                <tbody>
-                    <thead>
-                        <tr>
-                            <th scope="col">Nr. Zakupu</th>
-                            <th scope="col">Nazwa auta</th>
-                            <th scope="col">Data zakupu</th>
-                        </tr>
-                    </thead><?php while ($row = mysqli_fetch_assoc($history)) { ?>
+        <table class="table">
+            <tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Nr. Zakupu</th>
+                        <th scope="col">Nazwa auta</th>
+                        <th scope="col">Data zakupu</th>
+                    </tr>
+                </thead><?php while ($row = mysqli_fetch_assoc($history)) { ?>
                     <tr>
                         <td><?php echo $row["ID_ZAKUPU"] ?></td>
                         <td><?php echo $row["Nazwa_car"] ?></td>
                         <td><?php echo $row["Data_zakupu"] ?></td>
                     </tr>
-                </tbody>
-            </table>
-        <?php
-        }
-    } else {
-        ?>
-        <div class="container-sm" style="text-align:center; padding: 10%">
-            <h2>Brak aktywnego użytkównika.</h2><br><br>
-            <a class="btn btn-outline-success" href="logowanie.php">Zaloguj się</a>
-        </div>
+            </tbody>
+        </table>
     <?php
-    }
+                        }
+                    } else {
     ?>
-    <!-- Stopka -->
-    <footer class="footer fixed-bottom" style="height: 50px; padding: 14px">
+    <div class="container-sm" style="text-align:center; padding: 10%">
+        <h2>Brak aktywnego użytkównika.</h2><br><br>
+        <a class="btn btn-outline-success" href="logowanie.php">Przejdź do logowania</a>
+    </div>
+<?php
+                    }
+?>
+<!-- Stopka -->
+<div class="footer">
+    <p style="padding-top: 14px">
         © 2020 Copyright:
         <a class="white" href="index.html">Corona Car</a>
-    </footer>
+    </p>
+</div>
 </body>
 
 </html>

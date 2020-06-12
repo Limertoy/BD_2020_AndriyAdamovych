@@ -1,7 +1,7 @@
 <?php
 $link = mysqli_connect('localhost', 'root', '', 'baza');
-$sql5 = "SELECT * FROM `sklep` WHERE `ID_SKLEPU` = ".$_GET["sklep_id"].";";
-if($result = mysqli_query($link, $sql5)){
+$sql5 = "SELECT * FROM `sklep` WHERE `ID_SKLEPU` = " . $_GET["sklep_id"] . ";";
+if ($result = mysqli_query($link, $sql5)) {
     $sklep = mysqli_fetch_array($result);
 }
 ?>
@@ -78,10 +78,12 @@ if($result = mysqli_query($link, $sql5)){
     </div>
 
     <!-- Footer -->
-    <footer class="footer fixed-bottom" style="height: 50px; padding: 14px">
-        © 2020 Copyright:
-        <a class="white" href="index.html">Corona Car</a>
-    </footer>
+    <div class="footer">
+        <p style="padding-top: 14px;">
+            © 2020 Copyright:
+            <a class="white" href="index.html">Corona Car</a>
+        </p>
+    </div>
 
 </body>
 

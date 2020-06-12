@@ -1,5 +1,6 @@
 <?php
 session_start();
+$link = mysqli_connect("localhost", "root", "", "baza");
 ?>
 <html>
 
@@ -53,23 +54,28 @@ session_start();
             <p><strong>Imię:</strong> <?php echo $_SESSION["name"] ?></p>
             <p><strong>Email:</strong> <?php echo $_SESSION["email"] ?></p>
             <p><strong>Numer telefonu:</strong> <?php echo $_SESSION["tel"] ?></p>
-            <a class="btn btn-success" href="php/logout.php">Wyloguj</a>
+            <a class="btn btn-success" href="php/logout.php">Wyloguj</a><br><br>
+            <?php if($_SESSION["id"] == 1){ ?>
+                <a class="btn btn-outline-success" href="admin.php">Panel admina</a>
+            <?php } ?>
         </div>
     <?php
     } else {
     ?>
         <div class="container-sm" style="text-align:center; padding: 10%">
             <h2>Brak aktywnego użytkównika.</h2><br><br>
-            <a class="btn btn-outline-success" href="logowanie.php">Zaloguj się</a>
+            <a class="btn btn-outline-success" href="logowanie.php">Przejdź do logowania</a>
         </div>
     <?php
     }
     ?>
     <!-- Stopka -->
-    <footer class="footer fixed-bottom" style="height: 50px; padding: 14px">
+    <div class="footer">
+    <p style="padding-top: 14px">
         © 2020 Copyright:
         <a class="white" href="index.html">Corona Car</a>
-    </footer>
+    </p>
+    </div>
 </body>
 
 </html>
