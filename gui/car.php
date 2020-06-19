@@ -1,15 +1,16 @@
 <?php
 include('php/php.php');
-$firstsql = mysqli_query($link, $sql);
-while ($result = mysqli_fetch_assoc($firstsql)) {
-
+$firstsql = oci_parse($link, $sql);
+oci_execute($firstsql);
+while ($result = oci_fetch_assoc($firstsql)) {
     if (isset($_SESSION["name"])) {
-        $buy = 'INSERT INTO koszyk (ID_AUTA, ID_KLIENTA, Data_zakupu, Nazwa_car) VALUES (' . $id_auta . ', ' . $_SESSION["id"] . ', "' . date("Y-m-d") . '", "' . $result['Nazwa'] . '")';
-        $sell = 'UPDATE `auto` SET `Hidden` = 1 WHERE ID_AUTA = ' . $id_auta . ';';
+        $buy = 'INSERT INTO HISTORY (ID_AUTA, ID_KLIENTA, DATA_ZAKUPU, NAZWA_CAR) VALUES (' . $id_auta . ', ' . $_SESSION["id"] . ', "' . date("Y-m-d") . '", "' . $result['NAZWA'] . '")';
+        $sell = 'UPDATE AUTO SET HIDDEN = 1 WHERE ID_AUTA = ' . $id_auta . ';';
         if (isset($_POST["sumbit"])) {
-            mysqli_query($link, $buy);
-            mysqli_query($link, $sell);
-
+            $buy1 = oci_parse($link, $buy);
+            oci_execute($buy1);
+            $sell1 = oci_parse($link, $sell);
+            oci_execute($sell1);
             $message = "Piękny wybór! Auto kupione!";
             echo "<script type='text/javascript'>alert('$message');</script>";
             header("Location: katalog.php");
@@ -31,7 +32,7 @@ while ($result = mysqli_fetch_assoc($firstsql)) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="bootstrap.css">
-        <title><?php echo "{$result['Nazwa']}" ?> - Corona Car</title>
+        <title><?php echo "{$result['NAZWA']}" ?> - Corona Car</title>
     </head>
 
     <body>
@@ -70,8 +71,8 @@ while ($result = mysqli_fetch_assoc($firstsql)) {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-4" style="margin-top: 6%; text-align: center;">
-                    <img src="<?php echo "{$result['img_auto']}" ?>" class="img-thumbnail" alt="Obrazek auta" style="width: 100%; max-width: 500px"><br><br>
-                    <h3><?php echo "{$result['Nazwa']}" ?></h3>
+                    <img src="<?php echo "{$result['IMG_AUTO']}" ?>" class="img-thumbnail" alt="Obrazek auta" style="width: 100%; max-width: 500px"><br><br>
+                    <h3><?php echo "{$result['NAZWA']}" ?></h3>
                 </div>
                 <div class="col-6" style="margin-top: 5%;">
                     <h2>Сharakterystyki auta:</h2>
@@ -79,27 +80,27 @@ while ($result = mysqli_fetch_assoc($firstsql)) {
                         <tbody>
                             <tr>
                                 <td><strong>Rok</strong></td>
-                                <td><?php echo "{$result['Rok']}"  ?></td>
+                                <td><?php echo "{$result['ROK']}"  ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Przebieg</strong></td>
-                                <td><?php echo "{$result['Przebieg']}"  ?></td>
+                                <td><?php echo "{$result['PRZEBIEG']}"  ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Pojemność silnika</strong></td>
-                                <td><?php echo "{$result['Pojemnosc']}"  ?></td>
+                                <td><?php echo "{$result['POJEMNOSC']}"  ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Moc silnika</strong></td>
-                                <td><?php echo "{$result['Moc']}" ?></td>
+                                <td><?php echo "{$result['MOC']}" ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Cena (w dolarach)</strong></td>
-                                <td><?php echo "{$result['Cena']}"  ?></td>
+                                <td><?php echo "{$result['CENA']}"  ?></td>
                             </tr> <?php } ?>
                         <tr>
                             <td><strong>Sklep</strong></td>
-                            <td><a href="sklep.php?sklep_id=<?php echo "{$sklep1['ID_SKLEPU']}" ?>"><?php echo "{$sklep1['Nazwa_sklepu']}" ?></a></td>
+                            <td><a href="sklep.php?sklep_id=<?php echo "{$sklep1['ID_SKLEPU']}" ?>"><?php echo "{$sklep1['NAZWA_SKLEPU']}" ?></a></td>
                         </tr>
                         </tbody>
                     </table></br>
@@ -126,5 +127,5 @@ while ($result = mysqli_fetch_assoc($firstsql)) {
     </html>
 
     <?php
-    mysqli_close($link)
+    oci_close($link)
     ?>

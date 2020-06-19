@@ -1,7 +1,8 @@
 <?php
-include("php/admin2.php");
-$first = 'SELECT * FROM `auto` WHERE `Hidden` = 0';
-$first_result = mysqli_query($link, $first);
+$link = oci_connect("student", "123456", "//localhost/kosmos");
+$first = "SELECT * FROM AUTO WHERE HIDDENN = 0";
+$first_result = oci_parse($link, $first);
+oci_execute($first_result);
 ?>
 <html>
 
@@ -53,19 +54,20 @@ $first_result = mysqli_query($link, $first);
             <div class="col">
                 <div class="row">
                     <?php
-                    if (mysqli_num_rows($first_result) > 0) {
-                        while ($row = mysqli_fetch_assoc($first_result)) {
+                    
+                        while ($row = oci_fetch_assoc($first_result)) {
+                            
 
                     ?>
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="card">
-                                    <img class="card-img-top" src="<?php echo $row["img_auto"] ?>" alt="Brak obrazu auta">
+                                    <img class="card-img-top" src="<?php echo $row["IMG_AUTO"] ?>" alt="Brak obrazu auta">
                                     <div class="card-body">
-                                        <h4 class="card-title"><?php echo $row["Nazwa"] ?></h4>
-                                        <p class="card-text">Rok: <?php echo $row["Rok"] ?></p>
+                                        <h4 class="card-title"><?php echo $row["NAZWA"] ?></h4>
+                                        <p class="card-text">Rok: <?php echo $row["ROK"] ?></p>
                                         <div class="row">
                                             <div class="col">
-                                                <p class="btn btn-outline-danger disabled"><?php echo $row["Cena"] ?>$</p>
+                                                <p class="btn btn-outline-danger disabled"><?php echo $row["CENA"] ?>$</p>
                                             </div>
                                             <div class="col">
                                                 <a href="car.php?car_id=<?php echo $row["ID_AUTA"] ?>" class="btn btn-success btn-block">Zobacz</a>
@@ -74,14 +76,15 @@ $first_result = mysqli_query($link, $first);
                                     </div>
                                 </div>
                             </div>
-                    <?php }
-                    } else echo "<h2>Brak aut do wyboru!</h2>" ?>
+                    <?php
+                    }
+                     ?>
                 </div>
             </div>
 
         </div>
     </div><br><br>
-    <!-- Stopka -->>
+    <!-- Stopka -->
     <div class="footer">
         <p style="padding-top: 14px">
             © 2020 Copyright:
@@ -92,5 +95,5 @@ $first_result = mysqli_query($link, $first);
 
 </html>
 <?php
-mysqli_close($link);
+oci_close($link);
 ?>

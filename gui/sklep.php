@@ -1,9 +1,9 @@
 <?php
-$link = mysqli_connect('localhost', 'root', '', 'baza');
-$sql5 = "SELECT * FROM `sklep` WHERE `ID_SKLEPU` = " . $_GET["sklep_id"] . ";";
-if ($result = mysqli_query($link, $sql5)) {
-    $sklep = mysqli_fetch_array($result);
-}
+$link = oci_connect("student", "123456", "//localhost/kosmos");
+$sql5 = "SELECT * FROM SKLEP WHERE ID_SKLEPU = " . $_GET["sklep_id"] . "";
+$result = oci_parse($link, $sql5);
+oci_execute($result);
+$sklep = oci_fetch_array($result);
 ?>
 
 <!DOCTYPE html>
@@ -54,8 +54,8 @@ if ($result = mysqli_query($link, $sql5)) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-4" style="margin-top: 6%; text-align: center;">
-                <img src="<?php echo "{$sklep['img_sklep']}" ?>" class="img-thumbnail" alt="Logo sklepu" style="width: 100%; max-width: 500px"><br><br>
-                <h3><?php echo "{$sklep['Nazwa_sklepu']}" ?></h3>
+                <img src="<?php echo "{$sklep['IMG_SKLEP']}" ?>" class="img-thumbnail" alt="Logo sklepu" style="width: 100%; max-width: 500px"><br><br>
+                <h3><?php echo "{$sklep['NAZWA_SKLEPU']}" ?></h3>
             </div>
             <div class="col-6" style="margin-top: 3%;">
                 <h2>O sklepie:</h2>
@@ -63,15 +63,15 @@ if ($result = mysqli_query($link, $sql5)) {
                     <tbody>
                         <tr>
                             <td><strong>Telefon</strong></td>
-                            <td><?php echo "{$sklep['Telefon_sklepu']}"  ?></td>
+                            <td><?php echo "{$sklep['TELEFON_SKLEPU']}"  ?></td>
                         </tr>
                         <tr>
                             <td><strong>Opis dealera</strong></td>
-                            <td><?php echo "{$sklep['Email_sklepu']}"  ?></td>
+                            <td><?php echo "{$sklep['EMAIL_SKLEPU']}"  ?></td>
                         </tr>
                     </tbody>
                 </table></br>
-                <iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=<?php echo `{$sklep['Adres']}"` ?>"></iframe>
+                <iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=<?php echo `{$sklep['ADRES']}"` ?>"></iframe>
             </div>
             <div class="col-2"></div>
         </div>
@@ -88,3 +88,7 @@ if ($result = mysqli_query($link, $sql5)) {
 </body>
 
 </html>
+
+<?php
+oci_close($link);
+?>

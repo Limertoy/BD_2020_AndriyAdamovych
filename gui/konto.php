@@ -1,6 +1,6 @@
 <?php
 session_start();
-$link = mysqli_connect("localhost", "root", "", "baza");
+$link = oci_connect("student", "123456", "//localhost/kosmos");
 ?>
 <html>
 

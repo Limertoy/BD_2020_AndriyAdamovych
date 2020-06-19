@@ -2,10 +2,14 @@
 include('php/admin2.php');
 if (isset($_SESSION["name"])) {
     if ($_SESSION["id"] == 1) {
-        $car2 = mysqli_query($link, $car);
-        $car4 = mysqli_query($link, $car);
-        $sklep2 = mysqli_query($link, $sklep);
-        $dealer2 = mysqli_query($link, $dealer);
+        $car2 = oci_parse($link, $car);
+        oci_execute($car2);
+        $car4 = oci_parse($link, $car);
+        oci_execute($car4);
+        $sklep2 = oci_parse($link, $sklep);
+        oci_execute($sklep2);
+        $dealer2 = oci_parse($link, $dealer);
+        oci_execute($dealer2);
 ?>
 
 
@@ -114,8 +118,8 @@ if (isset($_SESSION["name"])) {
                             <label>ID Sklepu, w któtym stoi samochód</label><br>
                             <select name="ids" form="form1" required>
                                 <option> -----Wybierz sklep-----</option>
-                                <?php while ($sklep3 = mysqli_fetch_assoc($sklep2)) { ?>
-                                    <option value="<?php echo $sklep3["ID_SKLEPU"]; ?>"><?php echo $sklep3["ID_SKLEPU"]; ?></option>
+                                <?php while ($sklep3 = oci_fetch_assoc($sklep2)) { ?>
+                                    <option value="<?php echo $sklep3["ID_SKLEPU"]; ?>"><?php echo $sklep3["ID_SKLEPU"]; ?> - <?php echo $sklep3["NAZWA_SKLEPU"]; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -123,8 +127,8 @@ if (isset($_SESSION["name"])) {
                             <label>ID Dealera</label><br>
                             <select name="idd" form="form1" required>
                                 <option> -----Wybierz dealera-----</option>
-                                <?php while ($dealer3 = mysqli_fetch_assoc($dealer2)) { ?>
-                                    <option value="<?php echo $dealer3["ID_DEALERA"]; ?>"><?php echo $dealer3["ID_DEALERA"]; ?></option>
+                                <?php while ($dealer3 = oci_fetch_assoc($dealer2)) { ?>
+                                    <option value="<?php echo $dealer3["ID_DEALERA"]; ?>"><?php echo $dealer3["ID_DEALERA"]; ?> - <?php echo $dealer3["NAZWA_DEALERA"]; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -138,8 +142,8 @@ if (isset($_SESSION["name"])) {
                     <form method="post" id="form2" style="display: none;">
                         <select name="cars" form="form2">
                             <option> -----Wybierz samochód-----</option>
-                            <?php while ($car3 = mysqli_fetch_assoc($car2)) { ?>
-                                <option value="<?php echo $car3["Nazwa"]; ?>"><?php echo $car3["Nazwa"]; ?></option>
+                            <?php while ($car3 = oci_fetch_assoc($car2)) { ?>
+                                <option value="<?php echo $car3["ID_AUTA"]; ?>"><?php echo $car3["ID_AUTA"]; ?> - <?php echo $car3["NAZWA"]; ?></option>
                             <?php } ?>
                         </select><br><br>
                         <button class="btn btn-danger" type=sumbit name="usun">Usuń</button>
@@ -149,8 +153,8 @@ if (isset($_SESSION["name"])) {
                         <select name="updt" form="form3">
                             <label>Wybierz samochód do edytowania</label><br><br>
                             <option> -----Wybierz samochód-----</option>
-                            <?php while ($car3 = mysqli_fetch_assoc($car4)) { ?>
-                                <option value="<?php echo $car3["Nazwa"]; ?>"><?php echo $car3["Nazwa"]; ?></option>
+                            <?php while ($car3 = oci_fetch_assoc($car4)) { ?>
+                                <option value="<?php echo $car3["ID_AUTA"]; ?>"><?php echo $car3["ID_AUTA"]; ?> - <?php echo $car3["NAZWA"]; ?></option>
                             <?php } ?>
                         </select><br><br>
                         <div class="form-group">

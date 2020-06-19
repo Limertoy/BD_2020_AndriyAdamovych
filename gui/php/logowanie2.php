@@ -1,22 +1,19 @@
 <?php
-$link = mysqli_connect('localhost', 'root', '', 'baza');
+$link = oci_connect("student", "123456", "//localhost/kosmos");
 if (isset($_POST['email'])) {$email = $_POST['email']; }
 if (isset($_POST['password'])) {$password = $_POST['password']; }
 
-if (!$link) {
-    echo 'Nie mogę podłączyć do bazy. Kod błędu: ' . mysqli_connect_errno() . ', błąd: ' . mysqli_connect_error();
-    exit;
-}
 session_start();
 $message = "";
 if(count($_POST)>0){
-    $result = mysqli_query($link, "SELECT * FROM `klient` WHERE `Email_klienta`='". $_POST["email"] ."' and `Haslo` = '" . $_POST["password"] ."'");
-    $row = mysqli_fetch_array($result);
+    $result = oci_parse($link, "SELECT * FROM KLIENT WHERE EMAIL_KLIENTA='". $_POST["email"] ."' and HASLO = '" . $_POST["password"] ."'");
+    oci_execute($result);
+    $row = oci_fetch_array($result);
     if(is_array($row)){
     $_SESSION["id"] = $row['ID_KLIENTA'];
-    $_SESSION["name"] = $row['Imie'];
-    $_SESSION["tel"] = $row['Telefon_klienta'];
-    $_SESSION["email"] = $row['Email_klienta'];
+    $_SESSION["name"] = $row['IMIE'];
+    $_SESSION["tel"] = $row['TELEFON_KLIENTA'];
+    $_SESSION["email"] = $row['EMAIL_KLIENTA'];
     } else {
     $message = "Invalid Username or Password!";
     }

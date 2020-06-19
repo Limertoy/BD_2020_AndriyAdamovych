@@ -1,9 +1,10 @@
 <?php
-$link = mysqli_connect('localhost', 'root', '', 'baza');
-$sql4 = "SELECT * FROM `dealer` WHERE `ID_DEALERA` = " . $_GET["dealer_id"] . ";";
-if ($result = mysqli_query($link, $sql4)) {
-    $dealer = mysqli_fetch_array($result);
-}
+$link = oci_connect("student", "123456", "//localhost/kosmos");
+$sql4 = "SELECT * FROM DEALER WHERE ID_DEALERA = " . $_GET["dealer_id"] . "";
+$result5 = oci_parse($link, $sql4);
+oci_execute($result5);
+$dealer = oci_fetch_array($result5);
+
 ?>
 
 
@@ -55,8 +56,8 @@ if ($result = mysqli_query($link, $sql4)) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-4" style="margin-top: 6%; text-align: center;">
-                <img src="<?php echo "{$dealer['img_dealer']}" ?>" class="img-thumbnail" alt="Obrazek auta" style="width: 100%; max-width: 500px"><br><br>
-                <h3><?php echo "{$dealer['Nazwa_dealera']}" ?></h3>
+                <img src="<?php echo "{$dealer['IMG_DEALER']}" ?>" class="img-thumbnail" alt="Obrazek auta" style="width: 100%; max-width: 500px"><br><br>
+                <h3><?php echo "{$dealer['NAZWA_DEALERA']}" ?></h3>
             </div>
             <div class="col-6" style="margin-top: 5%;">
                 <h2>Informacja o dealerze:</h2>
@@ -64,11 +65,11 @@ if ($result = mysqli_query($link, $sql4)) {
                     <tbody>
                         <tr>
                             <td><strong>Kraj pochodzenia</strong></td>
-                            <td><?php echo "{$dealer['Kraj_pochodzenia']}"  ?></td>
+                            <td><?php echo "{$dealer['KRAJ_POCHODZENIA']}"  ?></td>
                         </tr>
                         <tr>
                             <td><strong>Opis dealera</strong></td>
-                            <td><?php echo "{$dealer['Opis_dealera']}"  ?></td>
+                            <td><?php echo "{$dealer['OPIS_DEALERA']}"  ?></td>
                         </tr>
                     </tbody>
                 </table></br>
@@ -91,5 +92,5 @@ if ($result = mysqli_query($link, $sql4)) {
 </html>
 
 <?php
-mysqli_close($link)
+oci_close($link)
 ?>

@@ -3,3 +3,7 @@ GUI:
 	Email: user@email.com Hasło: user123
 	Konto admina:
 	Email: admin@email.com Hasło: admin
+
+ORACLE:
+	Konto: student
+	Hasło: 123456

@@ -1,8 +1,9 @@
 <?php
 session_start();
-$link = mysqli_connect('localhost', 'root', '', 'baza');
-$first = mysqli_query($link, 'SELECT * FROM `auto`');
-$result = mysqli_fetch_row($first);
+$link = oci_connect("student", "123456", "//localhost/kosmos");
+$first1 = oci_parse($link, 'SELECT * FROM AUTO');
+oci_execute($first1);
+$result = oci_fetch_array($first1);
 ?>
 <html>
 
@@ -50,9 +51,8 @@ $result = mysqli_fetch_row($first);
     <!-- Treść strony -->
     <?php
     if (isset($_SESSION["name"])) {
-        $history = mysqli_query($link, "SELECT * FROM `koszyk` WHERE `ID_KLIENTA` = " . $_SESSION["id"] . ";");
-
-
+        $history = oci_parse($link, "SELECT * FROM HISTORY WHERE ID_KLIENTA = ". $_SESSION["id"] ."");
+        oci_execute($history);
     ?>
         <table class="table">
             <tbody>
@@ -62,11 +62,11 @@ $result = mysqli_fetch_row($first);
                         <th scope="col">Nazwa auta</th>
                         <th scope="col">Data zakupu</th>
                     </tr>
-                </thead><?php while ($row = mysqli_fetch_assoc($history)) { ?>
+                </thead><?php while ($row = oci_fetch_assoc($history)) { ?>
                     <tr>
                         <td><?php echo $row["ID_ZAKUPU"] ?></td>
-                        <td><?php echo $row["Nazwa_car"] ?></td>
-                        <td><?php echo $row["Data_zakupu"] ?></td>
+                        <td><?php echo $row["NAZWA_CAR"] ?></td>
+                        <td><?php echo $row["DATA_ZAKUPU"] ?></td>
                     </tr>
             </tbody>
         </table>
@@ -91,3 +91,7 @@ $result = mysqli_fetch_row($first);
 </body>
 
 </html>
+
+<?php
+oci_close($link);
+?>

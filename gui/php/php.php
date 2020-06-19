@@ -1,29 +1,18 @@
 <?php
 session_start();
-$username="root";
-$host="localhost";
-$database="baza";
-$password="";
-$link = mysqli_connect($host, $username, $password, $database);
-if (!$link) {
-    echo 'Nie mogę podłączyć do bazy. Kod błędu: ' . mysqli_connect_errno() . ', błąd: ' . mysqli_connect_error();
-    exit;
-  }
-
+$link = oci_connect("student", "123456", "//localhost/kosmos");
 
 $id_auta = $_GET["car_id"];
-$sql = "SELECT `ID_AUTA`, `Nazwa`, `Rok`, `Przebieg`, `Pojemnosc`, `Moc`, `Cena`, `ID_DEALERA`, `ID_SKLEPU`, `img_auto` FROM `auto` WHERE `ID_AUTA` = " .$id_auta. ";";
-if ($result1=mysqli_query($link, $sql)){
-    $auto = mysqli_fetch_array($result1);
-    $sql2 = "SELECT * FROM `dealer` WHERE `ID_DEALERA` = ".$auto['ID_DEALERA'].";";
-    $sql3 = "SELECT * FROM `sklep` WHERE `ID_SKLEPU` = ".$auto['ID_SKLEPU'].";";
-    if($result2 = mysqli_query($link, $sql2)){
-        $dealer1 = mysqli_fetch_array($result2);
-    }
-    if($result3 = mysqli_query($link, $sql3)){
-        $sklep1 = mysqli_fetch_array($result3);
-    }
-}
-
-
+$sql = "SELECT * FROM AUTO WHERE ID_AUTA = ".$id_auta."";
+$result1 = oci_parse($link, $sql);
+    oci_execute($result1);
+    $auto = oci_fetch_assoc($result1);
+    $sql2 = "SELECT * FROM DEALER WHERE ID_DEALERA = ".$auto['ID_DEALERA']."";
+    $sql3 = "SELECT * FROM SKLEP WHERE ID_SKLEPU = ".$auto['ID_SKLEPU']."";
+    $result2 = oci_parse($link, $sql2);
+    oci_execute($result2);
+    $dealer1 = oci_fetch_assoc($result2);
+    $result3 = oci_parse($link, $sql3);
+    oci_execute($result3);
+    $sklep1 = oci_fetch_assoc($result3);
 ?>
